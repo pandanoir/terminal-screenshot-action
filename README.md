@@ -6,7 +6,7 @@ ffmpeg によるリサイズにも対応。
 ## Usage
 
 ```yaml
-- uses: naoto/terminal-screenshot-action@v1
+- uses: pandanoir/terminal-screenshot-action@v1
   with:
     vhs-tape: .github/demo.tape
     resize-width: "1200"
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: naoto/terminal-screenshot-action@v1
+      - uses: pandanoir/terminal-screenshot-action@v1
         with:
           vhs-tape: .github/demo.tape
           resize-width: "1200"
