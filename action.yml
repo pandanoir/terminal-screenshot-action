@@ -29,6 +29,13 @@ runs:
         go install github.com/charmbracelet/vhs@${{ inputs.vhs-version }}
         echo "$HOME/go/bin" >> "$GITHUB_PATH"
 
+    - name: Create output directories
+      shell: bash
+      run: |
+        grep -i '^\(Screenshot\|Output\) ' "${{ inputs.vhs-tape }}" | awk '{print $2}' | while read -r img; do
+          mkdir -p "$(dirname "$img")"
+        done
+
     - name: Run VHS
       shell: bash
       run: vhs ${{ inputs.vhs-tape }}
