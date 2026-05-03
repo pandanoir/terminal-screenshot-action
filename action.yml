@@ -32,7 +32,7 @@ runs:
     - name: Create output directories
       shell: bash
       run: |
-        grep -i '^\(Screenshot\|Output\) ' "${{ inputs.vhs-tape }}" | awk '{print $2}' | while read -r img; do
+        grep -i '^\(Screenshot\|Output\) ' "${{ inputs.vhs-tape }}" | awk '{print $2}' | tr -d '"' | while read -r img; do
           mkdir -p "$(dirname "$img")"
         done
 
@@ -44,7 +44,7 @@ runs:
       if: inputs.resize-width != '0'
       shell: bash
       run: |
-        images=$(grep -i '^\(Screenshot\|Output\) ' "${{ inputs.vhs-tape }}" | awk '{print $2}')
+        images=$(grep -i '^\(Screenshot\|Output\) ' "${{ inputs.vhs-tape }}" | awk '{print $2}' | tr -d '"')
         for img in $images; do
           ffmpeg -i "$img" -vf "scale=${{ inputs.resize-width }}:-1" -map_metadata -1 /tmp/_vhs_resized.png -y
           mv /tmp/_vhs_resized.png "$img"
